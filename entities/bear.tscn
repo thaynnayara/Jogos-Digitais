@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://d0kgxsg84g78"]
+
+[ext_resource type="Texture2D" uid="uid://dqroxfhcf1l76" path="res://sprites/3-Bear/Sleeping_&_Wakeup_(48 x 32).png" id="1_numan"]
+[ext_resource type="Texture2D" uid="uid://bfn5n1ohv5juj" path="res://sprites/3-Bear/Idle_(48 x 32).png" id="2_2dbps"]
+[ext_resource type="Texture2D" uid="uid://5540qt0ymcbw" path="res://sprites/3-Bear/Walking_(48 x 32).png" id="3_cim67"]
+
+[sub_resource type="GDScript" id="GDScript_numan"]
+script/source = "extends CharacterBody2D
+
+
+const SPEED = 300.0
+const JUMP_VELOCITY = -400.0
+
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	move_and_slide()
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j6j1b"]
+atlas = ExtResource("1_numan")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6smhk"]
+atlas = ExtResource("1_numan")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uma71"]
+atlas = ExtResource("3_cim67")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nrw8r"]
+atlas = ExtResource("3_cim67")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mio0"]
+atlas = ExtResource("3_cim67")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nfbm"]
+atlas = ExtResource("3_cim67")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jd7e1"]
+atlas = ExtResource("3_cim67")
+region = Rect2(192, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jp675"]
+atlas = ExtResource("3_cim67")
+region = Rect2(240, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pd7ub"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j6j1b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6smhk")
+}],
+"loop": false,
+"name": &"dead",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2dbps")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uma71")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nrw8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mio0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nfbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jd7e1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jp675")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2dbps"]
+size = Vector2(27, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3t8pm"]
+size = Vector2(28, 19)
+
+[node name="bear" type="CharacterBody2D" unique_id=57000732]
+script = SubResource("GDScript_numan")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1054418171]
+sprite_frames = SubResource("SpriteFrames_pd7ub")
+animation = &"dead"
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=3132977]
+position = Vector2(-0.5, 6.5)
+shape = SubResource("RectangleShape2D_2dbps")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=473939259]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=774636345]
+position = Vector2(-1, 5.5)
+shape = SubResource("RectangleShape2D_3t8pm")
+debug_color = Color(0.84043473, 0.29643872, 0.6239556, 0.41960785)

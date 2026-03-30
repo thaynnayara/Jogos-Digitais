@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://bdlbdkr38rp0v"]
+
+[ext_resource type="Texture2D" uid="uid://tyt3aigm7aun" path="res://sprites/2-Roach/8 - Roach_Hurt (32 x 32).png" id="1_7rihk"]
+[ext_resource type="Script" uid="uid://cwwb5wnmb063c" path="res://scripts/roach.gd" id="1_uskqq"]
+[ext_resource type="Texture2D" uid="uid://ct51n8akaqsw0" path="res://sprites/2-Roach/8 - Roach_Idle (32 x 32).png" id="2_uskqq"]
+[ext_resource type="Texture2D" uid="uid://bxopd7uqke53q" path="res://sprites/2-Roach/8 - Roach_Running (32 x 32).png" id="3_xe4ja"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iyoww"]
+radius = 7.0
+height = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gt2rw"]
+atlas = ExtResource("1_7rihk")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrtde"]
+atlas = ExtResource("2_uskqq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ge86"]
+atlas = ExtResource("2_uskqq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q46lt"]
+atlas = ExtResource("3_xe4ja")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmvvi"]
+atlas = ExtResource("3_xe4ja")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mca00"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gt2rw")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrtde")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ge86")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q46lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmvvi")
+}],
+"loop": true,
+"name": &"running",
+"speed": 4.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uskqq"]
+radius = 8.0
+height = 18.0
+
+[node name="Roach" type="CharacterBody2D" unique_id=856540203]
+collision_layer = 4
+script = ExtResource("1_uskqq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=668368448]
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_iyoww")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=661002033]
+sprite_frames = SubResource("SpriteFrames_mca00")
+animation = &"hurt"
+frame_progress = 0.57681936
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=17656125 groups=["enemies"]]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2028527805]
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_uskqq")
+debug_color = Color(0.7917952, 0.36535203, 0.5860341, 0.41960785)
+
+[node name="WalDetector" type="RayCast2D" parent="." unique_id=881844283]
+position = Vector2(0, 10)
+target_position = Vector2(15, 1)
+
+[node name="GroundDetector" type="RayCast2D" parent="." unique_id=836273712]
+position = Vector2(12, 0)
+target_position = Vector2(0, 18)
